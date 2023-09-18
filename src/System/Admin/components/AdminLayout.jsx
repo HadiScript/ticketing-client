@@ -1,95 +1,93 @@
-import "../../../assets/layout.css";
-
-import { Layout, Grid, Drawer } from "antd";
+import { Layout, Menu, Grid, Drawer } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import SidebarNavs from "./SidebarNavs";
+import SideNavs from "./SideNavs";
 import { AuthContext } from "../../../context/Auth";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import axios from "axios";
 import Redirect from "../../../utils/Redirect";
 
-const { Content, Header, Sider } = Layout;
+const { Sider, Content, Header } = Layout;
 const { useBreakpoint } = Grid;
 
 const AdminLayout = ({ children }) => {
-  const breakpoint = useBreakpoint();
   const [open, setOpen] = useState(false);
+  const breakpoints = useBreakpoint();
   const [auth, setAuth] = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  const router = useNavigate();
 
-  const onClose = () => {
-    setOpen(false);
-  };
+  const onClose = () => setOpen(false);
 
   useEffect(() => {
-    if (auth && auth?.token) {
-      getCurrentAdmin();
+    if (auth && auth.token) {
+      gettingCurrentAdmin();
     }
-  }, []);
+  }, [auth && auth.token]);
 
-  const getCurrentAdmin = async () => {
+  const gettingCurrentAdmin = async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:9000/api/current-admin`,
+        "http://localhost:9000/api/current-admin",
         {
           headers: {
             Authorization: `Bearer ${auth?.token}`,
           },
         }
       );
-      console.log(data, "from client layout");
+
+      console.log(data);
+
       if (data.ok) {
         setLoading(false);
       }
-    } catch (err) {
-      console.log(err, "from heere");
-      router("/");
+    } catch (error) {
+      toast.error("Failed, try again");
     }
   };
 
   return (
     <Layout>
-      {/* sidebar */}
-      {breakpoint.md && (
+      {/* sidebar for just md large screens */}
+
+      {breakpoints.md && (
         <div style={{ height: "100vh" }}>
           <Sider
             style={{
               height: "100%",
+              background: "linear-gradient(45deg, #0b3d91, #000000)",
             }}
           >
-            <SidebarNavs />
+            <h5 className="menu-heading mt-2 text-center">Ticketing System</h5>
+            <SideNavs />
           </Sider>
         </div>
       )}
+      {/* end */}
 
-      {/* ------- */}
-
-      {/* layout start */}
       <Layout>
-        {/* header */}
+        {/* headers */}
         <Header
           style={{
             backgroundColor: "white",
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
             gap: "20px",
+            alignItems: "center",
             padding: "20px",
           }}
         >
-          {!breakpoint.md && (
-            <span onClick={() => setOpen(true)}>
-              button that will open menu for mobile
-            </span>
+          {!breakpoints.md && (
+            <div onClick={() => setOpen(true)}> open for mobile</div>
           )}
-          <span>profile</span>
 
+          <h6>Welcome {auth?.user?.name}</h6>
+          <div> profile</div>
           <Drawer
             title="Basic Drawer"
             placement="left"
             onClose={onClose}
             open={open}
+            closable={true}
+            style={{ width: "280px" }}
           >
             <p>Some contents...</p>
             <p>Some contents...</p>
@@ -98,10 +96,18 @@ const AdminLayout = ({ children }) => {
         </Header>
 
         {/* content */}
-        {/* <Content>{loading ? <Redirect /> : children}</Content> */}
-        <Content>{children}</Content>
+        <Content
+          style={{
+            minHeight: "80vh",
+            margin: "20px",
+            marginTop: "20px",
+            padding: "20px",
+            // background: "white",
+          }}
+        >
+          {loading ? <Redirect /> : children}
+        </Content>
       </Layout>
-      {/* --------- */}
     </Layout>
   );
 };

@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.sidebar-navs {
+  color: #b0b0b0 !important;
+  background-color: transparent !important;
+}
+
+.menu-heading {
+  color: #00a2ff !important;
+  /* background-color: #0a3c8c67 !important; */
+  padding: 10px;
+}
+
+.sidebar-navs:hover {
+  color: #00a2ff !important;
+}
