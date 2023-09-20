@@ -1,40 +1,32 @@
-import { Layout, Menu, Grid, Drawer, Dropdown, Avatar } from "antd";
+import { Layout, Menu, Grid, Drawer } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import SideNavs from "./SideNavs";
 import { AuthContext } from "../../../context/Auth";
 import toast from "react-hot-toast";
 import axios from "axios";
 import Redirect from "../../../utils/Redirect";
-import { BsPersonFillGear } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
-import { IoLogOutOutline } from "react-icons/io5";
-import UpdateProfileComponent from "../../components/UpdateProfileComponent";
-import { AiOutlineMenu } from "react-icons/ai";
 
 const { Sider, Content, Header } = Layout;
 const { useBreakpoint } = Grid;
 
-const AdminLayout = ({ children }) => {
-  const router = useNavigate();
+const ManagerLayout = ({ children }) => {
   const [open, setOpen] = useState(false);
   const breakpoints = useBreakpoint();
   const [auth, setAuth] = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
-  const [openProfile, setOpenProfile] = useState(false);
-
   const onClose = () => setOpen(false);
 
   useEffect(() => {
     if (auth && auth.token) {
-      gettingCurrentAdmin();
+      gettingCurrentClient();
     }
   }, [auth && auth.token]);
 
-  const gettingCurrentAdmin = async () => {
+  const gettingCurrentClient = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:9000/api/current-admin",
+        "http://localhost:9000/api/current-manager",
         {
           headers: {
             Authorization: `Bearer ${auth?.token}`,
@@ -52,27 +44,8 @@ const AdminLayout = ({ children }) => {
     }
   };
 
-  const items = [
-    {
-      key: "1",
-      label: <span>Profile</span>,
-      icon: <BsPersonFillGear className="icon-header" />,
-      onClick: () => setOpenProfile(true),
-    },
-    {
-      key: "2",
-      label: <span>Logout</span>,
-      icon: <IoLogOutOutline className="icon-header" />,
-      onClick: () => {
-        localStorage.clear();
-        setAuth({});
-        router("/");
-      },
-    },
-  ];
-
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout>
       {/* sidebar for just md large screens */}
 
       {breakpoints.md && (
@@ -103,33 +76,22 @@ const AdminLayout = ({ children }) => {
           }}
         >
           {!breakpoints.md && (
-            <div onClick={() => setOpen(true)}>
-              {" "}
-              <AiOutlineMenu />
-            </div>
+            <div onClick={() => setOpen(true)}> open for mobile</div>
           )}
 
           <h6>Welcome {auth?.user?.name}</h6>
-
-          <Dropdown menu={{ items }}>
-            <Avatar
-              style={{
-                background: "linear-gradient(45deg, #0b3d91, #000000)",
-                color: "white",
-              }}
-            >
-              U
-            </Avatar>
-          </Dropdown>
-
+          <div> profile</div>
           <Drawer
+            title="Basic Drawer"
             placement="left"
             onClose={onClose}
             open={open}
             closable={true}
-            style={{ width: "280px", background : "linear-gradient(45deg, #0b3d91, #000000)" }}
+            style={{ width: "280px" }}
           >
-            <SideNavs />
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
           </Drawer>
         </Header>
 
@@ -146,10 +108,8 @@ const AdminLayout = ({ children }) => {
           {loading ? <Redirect /> : children}
         </Content>
       </Layout>
-
-      <UpdateProfileComponent open={openProfile} setOpen={setOpenProfile} />
     </Layout>
   );
 };
 
-export default AdminLayout;
+export default ManagerLayout;

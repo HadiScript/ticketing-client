@@ -16,13 +16,13 @@ const Home = () => {
       )}
 
       {auth && auth?.user && auth?.user?.role === "agent" && (
-        <Link>Admin Dasboard</Link>
+        <Link to={"/agent"}>Agent Dasboard</Link>
       )}
       {auth && auth?.user && auth?.user?.role === "client" && (
-        <Link>Admin Dasboard</Link>
+        <Link to={"/client"}>client Dasboard</Link>
       )}
       {auth && auth?.user && auth?.user?.role === "manager" && (
-        <Link>Admin Dasboard</Link>
+        <Link to={"/manager"}>manager Dasboard</Link>
       )}
     </div>
   );

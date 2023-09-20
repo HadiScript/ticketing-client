@@ -21,4 +21,18 @@ code {
 
 .sidebar-navs:hover {
   color: #00a2ff !important;
+  background-color: rgba(255, 255, 255, 0.11) !important;
+}
+
+.sidebar-navs-active {
+  color: #00a2ff !important;
+  background-color: rgba(255, 255, 255, 0.263) !important;
+}
+
+.icon-header {
+  color: #0b3d91 !important;
+}
+
+.ant-drawer-header-title{
+  color: white !important;
 }
