@@ -5,7 +5,7 @@ import AllUsersComponent from "../components/AllUsersComponent";
 const AllUsersManager = () => {
   return (
     <ManagerLayout>
-      <AllUsersComponent />
+      <AllUsersComponent heading={"All Users"} role={"client"} />
     </ManagerLayout>
   );
 };

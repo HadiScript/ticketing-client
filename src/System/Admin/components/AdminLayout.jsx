@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { IoLogOutOutline } from "react-icons/io5";
 import UpdateProfileComponent from "../../components/UpdateProfileComponent";
 import { AiOutlineMenu } from "react-icons/ai";
+import { DefaultSider } from "../../../assets/layout";
 
 const { Sider, Content, Header } = Layout;
 const { useBreakpoint } = Grid;
@@ -76,17 +77,20 @@ const AdminLayout = ({ children }) => {
       {/* sidebar for just md large screens */}
 
       {breakpoints.md && (
-        <div style={{ height: "100vh" }}>
+        <DefaultSider>
           <Sider
             style={{
-              height: "100%",
               background: "linear-gradient(45deg, #0b3d91, #000000)",
+              position: "fixed",
+              left: 0,
+              top: 0,
+              bottom: 0,
             }}
           >
             <h5 className="menu-heading mt-2 text-center">Ticketing System</h5>
             <SideNavs />
           </Sider>
-        </div>
+        </DefaultSider>
       )}
       {/* end */}
 
@@ -113,12 +117,13 @@ const AdminLayout = ({ children }) => {
 
           <Dropdown menu={{ items }}>
             <Avatar
+              role="button"
               style={{
                 background: "linear-gradient(45deg, #0b3d91, #000000)",
                 color: "white",
               }}
             >
-              U
+              {auth?.user?.name[0]}
             </Avatar>
           </Dropdown>
 
@@ -127,7 +132,10 @@ const AdminLayout = ({ children }) => {
             onClose={onClose}
             open={open}
             closable={true}
-            style={{ width: "280px", background : "linear-gradient(45deg, #0b3d91, #000000)" }}
+            style={{
+              width: "280px",
+              background: "linear-gradient(45deg, #0b3d91, #000000)",
+            }}
           >
             <SideNavs />
           </Drawer>
@@ -139,7 +147,7 @@ const AdminLayout = ({ children }) => {
             minHeight: "80vh",
             margin: "20px",
             marginTop: "20px",
-            padding: "20px",
+            padding: "10px",
             // background: "white",
           }}
         >

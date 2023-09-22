@@ -11,6 +11,11 @@ import Agent from "./System/agent/index";
 import Client from "./System/Client";
 import AllUsers from "./System/Admin/AllUsers";
 import AllUsersManager from "./System/Manager/AllUsersManager";
+import AllAgent from "./System/Admin/AllAgent";
+import AllManagers from "./System/Admin/AllManagers";
+import AllAdmins from "./System/Admin/AllAdmins";
+import Category from "./System/Admin/Category";
+import CreateAccount from "./System/Admin/CreateAccount";
 
 const App = () => {
   return (
@@ -24,7 +29,13 @@ const App = () => {
 
         {/* Admin Routes */}
         <Route path="/admin" element={<Admin />} />
+        {/* client */}
         <Route path="/admin/all-users" element={<AllUsers />} />
+        <Route path="/admin/all-agents" element={<AllAgent />} />
+        <Route path="/admin/all-managers" element={<AllManagers />} />
+        <Route path="/admin/all-admins" element={<AllAdmins />} />
+        <Route path="/admin/category" element={<Category />} />
+        <Route path="/admin/create-account" element={<CreateAccount />} />
 
         {/* Manager Routes */}
         <Route path="/manager" element={<Manager />} />

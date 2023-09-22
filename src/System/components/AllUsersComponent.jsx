@@ -3,11 +3,13 @@ import { Avatar, Card, List, Modal } from "antd";
 import { AuthContext } from "../../context/Auth";
 import toast from "react-hot-toast";
 import axios from "axios";
+import UsersBtns from "./UsersBtns";
+import { deleteRequest } from "../Actions/Requests";
 
-const AllUsersComponent = () => {
+const AllUsersComponent = ({ heading, url }) => {
   const [auth] = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState([{ title: "here " }]);
+  const [users, setUsers] = useState([]);
   const [currentItem, setCurrectItem] = useState({});
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,7 +17,8 @@ const AllUsersComponent = () => {
   const gettingUsers = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("http://localhost:9000/api/all-users", {
+
+      const { data } = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${auth?.token}`,
         },
@@ -34,9 +37,23 @@ const AllUsersComponent = () => {
     if (auth && auth?.token) gettingUsers();
   }, [auth && auth?.token]);
 
+  const removeUser = async (_id) => {
+    let ok = window.confirm("Are you sure?");
+    if (ok) {
+      setLoading(true);
+      const data = await deleteRequest(`/by/auth/delete-users/${_id}`, auth);
+      if (data.ok) {
+        setUsers(users.filter((x) => x._id !== _id));
+        setLoading(false);
+        toast.success("Has been removed!");
+      }
+    }
+  };
+
   return (
     <>
-      <Card title={"All Users"}>
+      <Card title={heading}>
+        <UsersBtns />
         <List
           loading={loading}
           itemLayout="horizontal"
@@ -53,6 +70,16 @@ const AllUsersComponent = () => {
                 >
                   edit
                 </a>,
+                <span
+                  role="button"
+                  className="text-danger"
+                  key="list-loadmore-edit"
+                  onClick={() => {
+                    removeUser(item._id);
+                  }}
+                >
+                  delete
+                </span>,
               ]}
             >
               <List.Item.Meta
