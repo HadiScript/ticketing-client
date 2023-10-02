@@ -16,6 +16,8 @@ import AllManagers from "./System/Admin/AllManagers";
 import AllAdmins from "./System/Admin/AllAdmins";
 import Category from "./System/Admin/Category";
 import CreateAccount from "./System/Admin/CreateAccount";
+import Submit from "./System/agent/Submit";
+import OpenRequest from "./System/agent/OpenRequest";
 
 const App = () => {
   return (
@@ -46,6 +48,8 @@ const App = () => {
 
         {/* client Routes */}
         <Route path="/client" element={<Client />} />
+        <Route path="/client/submit-request" element={<Submit />} />
+        <Route path="/client/open-request" element={<OpenRequest />} />
       </Routes>
     </>
   );
