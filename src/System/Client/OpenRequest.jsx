@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import ClientLayout from "../Client/components/ClientLayout";
+import ClientLayout from "./components/ClientLayout";
 import { getRequest } from "../Actions/Requests";
 import { AuthContext } from "../../context/Auth";
 
@@ -58,7 +58,7 @@ const OpenRequest = () => {
                 <th scope="row">{++index}</th>
                 <td>{x.title}</td>
                 <td>{x.description}</td>
-                <td>{x.category.name}</td>
+                <td>{x.category?.name}</td>
                 <td>{x.priority}</td>
                 <td>{x.createdAt.slice(0, 10)}</td>
                 <td>

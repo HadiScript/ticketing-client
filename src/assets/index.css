@@ -80,3 +80,9 @@ code {
   color: #000000 !important;
   /* font-weight: 400; */
 }
+
+.breached {
+  background-color: red !important;
+  color: white;
+  border-radius: 5px;
+}
