@@ -20,6 +20,9 @@ import Submit from "./System/agent/Submit";
 import OpenRequest from "./System/Client/OpenRequest";
 import PickedTicket from "./System/agent/PickedTicket";
 import SingleTicket from "./System/agent/SingleTicket";
+import ClientSingleTc from "./System/Client/ClientSingleTc";
+import ResolvedTc from "./System/Client/ResolvedTc";
+import ResolvedDetaiilTc from "./System/Client/ResolvedDetaiilTc";
 
 const App = () => {
   return (
@@ -54,6 +57,9 @@ const App = () => {
         <Route path="/client" element={<Client />} />
         <Route path="/client/submit-request" element={<Submit />} />
         <Route path="/client/open-request" element={<OpenRequest />} />
+        <Route path="/client/single/:id" element={<ClientSingleTc />} />
+        <Route path="/client/resolved-request" element={<ResolvedTc />} />
+        <Route path="/client/resolved/:id" element={<ResolvedDetaiilTc />} />
       </Routes>
     </>
   );

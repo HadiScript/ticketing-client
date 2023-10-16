@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import React from "react";
-import { BsFolder2Open } from "react-icons/bs";
+import { BsFolder2Open, BsPatchCheck } from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
 import { VscRequestChanges } from "react-icons/vsc";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -24,11 +24,7 @@ const SideNavs = () => {
 
       <Menu.Item
         onClick={() => router("/client/submit-request")}
-        className={`mt-3 ${
-          pathname === "/client/submit-request"
-            ? "sidebar-navs-active"
-            : "sidebar-navs"
-        }`}
+        className={`mt-3 ${pathname === "/client/submit-request" ? "sidebar-navs-active" : "sidebar-navs"}`}
         icon={<VscRequestChanges />}
       >
         Submit Request
@@ -36,14 +32,18 @@ const SideNavs = () => {
 
       <Menu.Item
         onClick={() => router("/client/open-request")}
-        className={`mt-2 ${
-          pathname === "/client/open-request"
-            ? "sidebar-navs-active"
-            : "sidebar-navs"
-        }`}
+        className={`mt-2 ${pathname === "/client/open-request" ? "sidebar-navs-active" : "sidebar-navs"}`}
         icon={<BsFolder2Open />}
       >
         Open Requests
+      </Menu.Item>
+
+      <Menu.Item
+        onClick={() => router("/client/resolved-request")}
+        className={`mt-1 ${pathname === "/client/resolved-request" ? "sidebar-navs-active" : "sidebar-navs"}`}
+        icon={<BsPatchCheck />}
+      >
+        Resolved Requests
       </Menu.Item>
 
       <Menu.Item className="sidebar-navs">Managers</Menu.Item>

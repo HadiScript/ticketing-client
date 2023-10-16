@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { getRequest } from "../Actions/Requests";
 import { AuthContext } from "../../context/Auth";
 
-const SingleTicket = () => {
+const SingleTcCompo = () => {
   const { id } = useParams();
   const [auth] = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
@@ -25,8 +25,8 @@ const SingleTicket = () => {
 
   return (
     <AgentLayout>
-      <h5>breadcurmbs</h5>
       SingleTicket - {id} - {JSON.stringify(single.comments)} <br />
+      {/* breadcurmbs */}
       {/* description */}
       {/* textarea and button */}
       {/* comments list */}
@@ -34,4 +34,4 @@ const SingleTicket = () => {
   );
 };
 
-export default SingleTicket;
+export default SingleTcCompo;

@@ -7,6 +7,7 @@ import { IoHome } from "react-icons/io5";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { AiFillFolderOpen } from "react-icons/ai";
 import { GoLinkExternal } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 const OpenRequest = () => {
   const [auth] = useContext(AuthContext);
@@ -62,7 +63,9 @@ const OpenRequest = () => {
                 <td>{x.priority}</td>
                 <td>{x.createdAt.slice(0, 10)}</td>
                 <td>
-                  <GoLinkExternal />
+                  <Link to={`/client/single/${x._id}`}>
+                    <GoLinkExternal />
+                  </Link>
                 </td>
               </tr>
             ))}
